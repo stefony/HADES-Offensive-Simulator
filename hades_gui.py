@@ -30,14 +30,18 @@ if st.button("Run Attack Simulation"):
     st.subheader("🔍 Event Details:")
     st.json(event)
 
-    st.download_button("📄 Download JSON", data=str(event), file_name="event_log.json")
+    st.download_button("📥 Download JSON", data=json.dumps(event, indent=4), file_name="event_log.json")
     
     st.markdown("## 🔁 Log Generation from Uploaded File")
 
-uploaded_file = st.file_uploader("Upload event_log.json", type="json")
+uploaded_file = st.file_uploader("Upload event_log.json", type=["json"])
 
 if uploaded_file is not None:
-    attack_data = json.load(uploaded_file)
+    try:
+        attack_data = json.load(uploaded_file)
+    except json.JSONDecodeError as e:
+        st.error(f"❌ Invalid JSON file: {e}")
+        st.stop()
 
     st.write("Loaded Event:")
     st.json(attack_data)
