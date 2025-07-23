@@ -1,76 +1,78 @@
-HADES Offensive Attack Simulator
-A modular Red Team simulation framework for training, testing, and detection engineering.
+# 🧪 HADES Offensive Simulator - Usage Guide
 
-⚙️ Prerequisites
-Python 3.8+
+This guide will walk you through using the HADES Red Team simulation tool via its web interface (Streamlit).
 
-OS: Windows/Linux
+---
 
-Installed dependencies from requirements.txt
+## ✅ Step-by-Step Instructions
 
-✅ Install Requirements
- 
+### 1. Setup
+
+Install the required dependencies:
+
+```bash
 pip install -r requirements.txt
-🚀 Start the Simulation UI
- 
+
+Run the Streamlit GUI:
 streamlit run hades_gui.py
-This launches a web-based interface (Streamlit) where you can select which cyber attack to simulate.
 
-🧪 Simulate an Attack
-Open the Streamlit app
+2.Simulate Offensive Attacks
+From the GUI:
 
-Select an attack (e.g. Credential Dump)
+Choose an attack type:
 
-Click "Run Attack Simulation"
+Credential Dump
 
-✅ This generates a JSON log file called event_log.json, e.g.:
+Reverse Shell (Obfuscated)
 
- 
-{
-  "attack": "Credential Dumping",
-  "tool": "Mimikatz",
-  "technique": "T1003.001",
-  "timestamp": "2025-07-23 14:00:00"
-}
-📁 Generate Fake Logs for Blue Team Testing
-Once event_log.json is created, use it to generate detection artifacts.
+Click Run Attack Simulation
 
-📄 CSV Log
- 
-python log_simulator.py event_log.json
-📄 Sysmon-style Log
- 
-python sysmon_simulator.py event_log.json
-📄 Windows EVTX Log
- 
-python evt_generator.py event_log.json
-🎯 Use Cases
-Red Team simulation environments
+The event will be:
 
-Blue Team detection rule testing (Sigma, Splunk, ELK)
+Displayed in JSON format
 
-Threat hunting practice
+Saved to logs/event_log.json
 
-Cyber range lab development
+Exported to:
 
-🧩 Modular Design
-Easily extend core/ modules to simulate other ATT&CK techniques:
+export.csv
 
-Add new .json templates
+generate_event.ps1 (PowerShell script)
 
-Extend script logic to simulate tools like Empire, Cobalt Strike, etc.
+You can download the simulated event as a JSON file.
 
-🤝 Contributing
-Feedback, PRs, and suggestions welcome!
-Submit an issue or contact the author via LinkedIn.
+3. Log Generation from Custom Event
+Upload your own event_log.json
 
-🔐 License
-MIT License – see LICENSE file.
+Choose the log type to generate:
 
-📌 Quick Commands Summary
-Task	Command
-Install deps	pip install -r requirements.txt
-Run web GUI	streamlit run hades_gui.py
-Generate logs	python log_simulator.py event_log.json
-Generate EVTX	python evt_generator.py event_log.json
-Generate Sysmon logs	python sysmon_simulator.py event_log.json
+CSV
+
+Sysmon XML
+
+EVTX (PowerShell)
+
+Click Generate Log File
+
+Logs will be saved to the logs/ directory
+
+4. Optional: Inject Event into Event Viewer
+To test detection pipelines, you can inject the event using the generated PowerShell script:
+# Run from PowerShell as Administrator
+.\logs\generate_event.ps1
+
+ Make sure PowerShell execution policy allows running scripts:
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+Troubleshooting
+Make sure logs/ folder exists or is auto-created
+If generate_event.ps1 doesn't run, check PowerShell script permissions
+For Streamlit errors, try refreshing the browser or restarting the app
+
+ Cleanup
+To clear all logs:
+rm -rf logs/*.*
+
+HADES is designed for educational and testing purposes only. Use responsibly.
+
+
