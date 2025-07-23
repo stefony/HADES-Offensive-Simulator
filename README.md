@@ -1,25 +1,28 @@
-# HADES-Offensive-Simulator
+# 🛡️ HADES - Offensive Attack Simulator
 
-**HADES** is a Red Team simulation framework built with Python and Streamlit.  
-It provides offensive cybersecurity operators with a modular attack simulation environment.
+**HADES** is an interactive tool for simulating offensive cyberattacks and generating forensic logs in multiple formats. It is designed for red team labs, detection engineering, SIEM testing, and DFIR training.
 
-## Features
+---
 
-- 📁 Modular core: attacks, payloads, and logging
-- 🕸️ Web-based GUI (Streamlit)
-- 🧪 Offline analysis with `.csv` and `.evtx` support
-- 🧠 Designed for malware testing, C2, and post-exploitation simulation
+## 🔧 Key Features
 
-## Components
+- 🎯 **Attack Simulation**
+  - Credential Dump (Mimikatz-like)
+  - Reverse Shell (Obfuscated PowerShell)
 
-- `core/` – core simulation engine
-- `logs/` – exported data from simulations
-- `hades_gui.py` – GUI front-end (Streamlit)
-- `run.py` – main execution script
+- 📄 **Log Generation**
+  - `JSON` – base log of the attack
+  - `CSV` – table-formatted logs
+  - `Sysmon XML` – simulated Sysmon 4688 event
+  - `EVTX` – PowerShell script for injecting fake events
 
-## Setup
+- 📤 **External JSON Import**
+  - Upload your own `event_log.json` and generate custom logs
+
+---
+
+## ▶️ Run the Simulator
 
 ```bash
 pip install -r requirements.txt
-python run.py
-
+streamlit run hades_gui.py
