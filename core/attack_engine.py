@@ -1,6 +1,13 @@
 from time import sleep
 from colorama import Fore
+from datetime import datetime
+import uuid
+
 from core.sysmon_simulator import generate_sysmon_4688
+
+
+def current_time():
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 
 def simulate_credential_dump():
@@ -9,12 +16,15 @@ def simulate_credential_dump():
     print(Fore.YELLOW + "sekurlsa::logonpasswords")
     sleep(1)
     print(Fore.GREEN + "[+] Dump complete.")
+
     return {
         "attack": "Credential Dumping",
         "tool": "Mimikatz",
         "technique": "T1003.001",
-        "timestamp": "2025-07-23 14:00:00"
+        "timestamp": current_time(),
+        "event_id": str(uuid.uuid4())
     }
+
 
 def simulate_reverse_shell():
     print(Fore.RED + "[*] Simulating reverse shell...")
@@ -41,8 +51,10 @@ def simulate_reverse_shell():
         "dest_port": attacker_port,
         "stealth_score": 7.5,
         "timestamp": sysmon_event["time_generated"],
+        "event_id": str(uuid.uuid4()),
         "sysmon": sysmon_event
     }
+
 
 def simulate_command_injection():
     print(Fore.RED + "[*] Simulating Command Injection...")
@@ -59,8 +71,10 @@ def simulate_command_injection():
         "vulnerability": "Unsanitized user input in OS command",
         "endpoint": "/status?host=127.0.0.1 && whoami",
         "timestamp": sysmon_event["time_generated"],
+        "event_id": str(uuid.uuid4()),
         "sysmon": sysmon_event
     }
+
 
 def simulate_sql_injection():
     print(Fore.RED + "[*] Simulating SQL Injection...")
@@ -79,8 +93,10 @@ def simulate_sql_injection():
         "affected_endpoint": "/login",
         "database": "MSSQL",
         "timestamp": sysmon_event["time_generated"],
+        "event_id": str(uuid.uuid4()),
         "sysmon": sysmon_event
     }
+
 
 def simulate_xss():
     print(Fore.RED + "[*] Simulating Reflected XSS...")
@@ -95,8 +111,10 @@ def simulate_xss():
         "technique": "T1059.007",
         "payload": payload,
         "target_page": "/search?q=<script>alert('Hacked');</script>",
-        "timestamp": "2025-07-23 17:00:00"
+        "timestamp": current_time(),
+        "event_id": str(uuid.uuid4())
     }
+
 
 def simulate_lateral_movement():
     print(Fore.RED + "[*] Simulating Lateral Movement via PsExec...")
@@ -113,5 +131,6 @@ def simulate_lateral_movement():
         "tool": "PsExec",
         "target_host": "10.0.0.5",
         "timestamp": sysmon_event["time_generated"],
+        "event_id": str(uuid.uuid4()),
         "sysmon": sysmon_event
     }

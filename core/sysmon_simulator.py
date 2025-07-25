@@ -3,23 +3,34 @@ import uuid
 import time
 import os
 
-def generate_sysmon_4688(process_name, parent_process, cmdline):
-    detection_note = "N/A"
 
+def detect_behavior(cmdline):
+    """
+    Analyze command line for suspicious behavior.
+    """
     cmd = cmdline.lower()
 
     if "powershell" in cmd:
-        detection_note = "Suspicious PowerShell reverse shell detected"
+        return "Suspicious PowerShell reverse shell detected"
     elif "psexec" in cmd:
-        detection_note = "Potential lateral movement via PsExec"
+        return "Potential lateral movement via PsExec"
     elif ("ping" in cmd or "curl" in cmd or "wget" in cmd) and ("&&" in cmd or ";" in cmd):
-        detection_note = "Possible command injection attempt"
+        return "Possible command injection attempt"
     elif "select" in cmd and "from" in cmd:
-        detection_note = "Suspicious SQL query pattern (possible SQLi)"
+        return "Suspicious SQL query pattern (possible SQLi)"
     elif "<script>" in cmd or "javascript:" in cmd:
-        detection_note = "XSS payload detected in user input"
+        return "XSS payload detected in user input"
+    else:
+        return "N/A"
 
-    event = {
+
+def generate_sysmon_4688(process_name, parent_process, cmdline):
+    """
+    Generate a Sysmon-style process creation event (Event ID 4688).
+    """
+    detection_note = detect_behavior(cmdline)
+
+    return {
         "event_id": 4688,
         "record_id": random.randint(1000, 9999),
         "time_generated": time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -32,11 +43,19 @@ def generate_sysmon_4688(process_name, parent_process, cmdline):
         "detection_note": detection_note
     }
 
-    return event
-
 
 def generate_sysmon_log(event_dict, output_path="logs/sysmon_log.xml"):
-    os.makedirs("logs", exist_ok=True)
+    """
+    Write event as Sysmon-compatible XML.
+    """
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+    if not isinstance(event_dict, dict):
+        raise ValueError("Event must be a dictionary.")
+
+    xml_data = "\n        ".join(
+        [f"<Data Name='{k}'>{v}</Data>" for k, v in event_dict.items()]
+    )
 
     sysmon_template = f"""<Event>
     <System>
@@ -44,7 +63,7 @@ def generate_sysmon_log(event_dict, output_path="logs/sysmon_log.xml"):
         <EventID>1</EventID>
     </System>
     <EventData>
-        {"".join([f"<Data Name='{k}'>{v}</Data>" for k, v in event_dict.items()])}
+        {xml_data}
     </EventData>
 </Event>"""
 

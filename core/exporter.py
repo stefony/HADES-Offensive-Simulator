@@ -1,16 +1,30 @@
 import csv
 import os
 
-def export_to_csv(json_event, output_file="logs/export.csv"):
-    os.makedirs("logs", exist_ok=True)
-    flat_event = {}
 
-    for k, v in json_event.items():
+def flatten_dict(d, parent_key='', sep='_'):
+    """
+    Recursively flattens a nested dictionary.
+    Example:
+    {"a": {"b": 1}} → {"a_b": 1}
+    """
+    items = []
+    for k, v in d.items():
+        new_key = f"{parent_key}{sep}{k}" if parent_key else k
         if isinstance(v, dict):
-            for sub_k, sub_v in v.items():
-                flat_event[f"{k}_{sub_k}"] = sub_v
+            items.extend(flatten_dict(v, new_key, sep=sep).items())
         else:
-            flat_event[k] = v
+            items.append((new_key, v))
+    return dict(items)
+
+
+def export_to_csv(json_event, output_file="logs/export.csv"):
+    """
+    Exports a (possibly nested) JSON event to flat CSV.
+    """
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+
+    flat_event = flatten_dict(json_event)
 
     with open(output_file, mode="w", newline='', encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=flat_event.keys())
