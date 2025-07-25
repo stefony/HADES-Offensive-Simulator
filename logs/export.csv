@@ -1,2 +1,2 @@
-attack,technique,obfuscation,payload,source_ip,dest_port,stealth_score,timestamp,sysmon_event_id,sysmon_record_id,sysmon_time_generated,sysmon_process_guid,sysmon_parent_process,sysmon_new_process,sysmon_command_line,sysmon_integrity_level,sysmon_detected,sysmon_detection_note
-Reverse Shell,T1059.001,base64 encoded payload,cG93ZXJzaGVsbC5leGUgLW5vcGAgLUNvbW1hbmQgJ2Jhc2gtaSA+ICRudWxsID4gJjEn,192.168.1.66,4444,7.5,2025-07-24 01:27:14,4688,8511,2025-07-24 01:27:14,66b47f6b-5e13-4e82-a0de-ab30499ddbd9,explorer.exe,powershell.exe,powershell.exe -nop -Command 'bash -i > $null 2>&1',Medium,False,Suspicious PowerShell reverse shell detected
+attack,technique,payload,target_page,timestamp
+Reflected XSS,T1059.007,<script>alert('Hacked');</script>,/search?q=<script>alert('Hacked');</script>,2025-07-23 17:00:00

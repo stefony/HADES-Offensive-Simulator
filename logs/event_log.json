@@ -1,22 +1,7 @@
 {
-    "attack": "Reverse Shell",
-    "technique": "T1059.001",
-    "obfuscation": "base64 encoded payload",
-    "payload": "cG93ZXJzaGVsbC5leGUgLW5vcGAgLUNvbW1hbmQgJ2Jhc2gtaSA+ICRudWxsID4gJjEn",
-    "source_ip": "192.168.1.66",
-    "dest_port": 4444,
-    "stealth_score": 7.5,
-    "timestamp": "2025-07-24 01:27:14",
-    "sysmon": {
-        "event_id": 4688,
-        "record_id": 8511,
-        "time_generated": "2025-07-24 01:27:14",
-        "process_guid": "66b47f6b-5e13-4e82-a0de-ab30499ddbd9",
-        "parent_process": "explorer.exe",
-        "new_process": "powershell.exe",
-        "command_line": "powershell.exe -nop -Command 'bash -i > $null 2>&1'",
-        "integrity_level": "Medium",
-        "detected": false,
-        "detection_note": "Suspicious PowerShell reverse shell detected"
-    }
+    "attack": "Reflected XSS",
+    "technique": "T1059.007",
+    "payload": "<script>alert('Hacked');</script>",
+    "target_page": "/search?q=<script>alert('Hacked');</script>",
+    "timestamp": "2025-07-23 17:00:00"
 }

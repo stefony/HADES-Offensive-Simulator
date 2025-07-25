@@ -15,17 +15,16 @@ def simulate_credential_dump():
         "technique": "T1003.001",
         "timestamp": "2025-07-23 14:00:00"
     }
+
 def simulate_reverse_shell():
     print(Fore.RED + "[*] Simulating reverse shell...")
     sleep(1)
-    
+
     attacker_ip = "192.168.1.66"
     attacker_port = 4444
-
-    # Simulated obfuscated payload (base64 encoded PowerShell)
     payload = "cG93ZXJzaGVsbC5leGUgLW5vcGAgLUNvbW1hbmQgJ2Jhc2gtaSA+ICRudWxsID4gJjEn"
     decoded_cmd = "powershell.exe -nop -Command 'bash -i > $null 2>&1'"
-    
+
     print(Fore.YELLOW + f"Encoded payload: {payload}")
     sleep(1)
 
@@ -45,3 +44,74 @@ def simulate_reverse_shell():
         "sysmon": sysmon_event
     }
 
+def simulate_command_injection():
+    print(Fore.RED + "[*] Simulating Command Injection...")
+    sleep(1)
+
+    cmd_line = "ping 127.0.0.1 && whoami"
+    sysmon_event = generate_sysmon_4688("cmd.exe", "webserver.exe", cmd_line)
+
+    print(Fore.GREEN + "[+] Command Injection executed (simulated).")
+
+    return {
+        "attack": "Command Injection",
+        "technique": "T1059",
+        "vulnerability": "Unsanitized user input in OS command",
+        "endpoint": "/status?host=127.0.0.1 && whoami",
+        "timestamp": sysmon_event["time_generated"],
+        "sysmon": sysmon_event
+    }
+
+def simulate_sql_injection():
+    print(Fore.RED + "[*] Simulating SQL Injection...")
+    sleep(1)
+
+    payload = "' OR '1'='1';--"
+    cmd_line = f"SELECT * FROM users WHERE username = '{payload}'"
+    sysmon_event = generate_sysmon_4688("sqlservr.exe", "webapp.exe", cmd_line)
+
+    print(Fore.GREEN + "[+] SQLi simulated.")
+
+    return {
+        "attack": "SQL Injection",
+        "technique": "T1505.001",
+        "payload": payload,
+        "affected_endpoint": "/login",
+        "database": "MSSQL",
+        "timestamp": sysmon_event["time_generated"],
+        "sysmon": sysmon_event
+    }
+
+def simulate_xss():
+    print(Fore.RED + "[*] Simulating Reflected XSS...")
+    sleep(1)
+
+    payload = "<script>alert('Hacked');</script>"
+    print(Fore.YELLOW + f"Injected XSS payload: {payload}")
+    sleep(1)
+
+    return {
+        "attack": "Reflected XSS",
+        "technique": "T1059.007",
+        "payload": payload,
+        "target_page": "/search?q=<script>alert('Hacked');</script>",
+        "timestamp": "2025-07-23 17:00:00"
+    }
+
+def simulate_lateral_movement():
+    print(Fore.RED + "[*] Simulating Lateral Movement via PsExec...")
+    sleep(1)
+
+    cmd_line = "PsExec.exe \\\\10.0.0.5 -u admin -p password cmd.exe"
+    sysmon_event = generate_sysmon_4688("PsExec.exe", "cmd.exe", cmd_line)
+
+    print(Fore.GREEN + "[+] Lateral movement simulated.")
+
+    return {
+        "attack": "Lateral Movement",
+        "technique": "T1021.002",
+        "tool": "PsExec",
+        "target_host": "10.0.0.5",
+        "timestamp": sysmon_event["time_generated"],
+        "sysmon": sysmon_event
+    }
