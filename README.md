@@ -1,68 +1,79 @@
-# 🎯 HADES-Offensive-Simulator
+# 🎯 HADES-Offensive-Simulator v1.2.0
 
-HADES (Highly Automated Detection Evasion Simulator) is a red team attack simulation tool designed to generate realistic offensive events for training, log analysis, and SOC detection pipelines.
+**HADES** (Highly Automated Detection Evasion Simulator) is a Red Team simulation tool built to generate offensive attack logs for training, SOC pipelines, and adversary emulation.
 
 ---
 
 ## 🚀 Features
 
-- ✅ Web GUI interface using **Streamlit**
-- 🎭 Simulates common offensive techniques
-- 📁 Generates realistic logs:
-  - JSON (`event_log.json`)
-  - CSV (`export.csv`)
-  - EVTX via PowerShell (`generate_event.ps1`)
-  - Sysmon-compatible XML (coming soon)
-- 📤 Upload and process custom `.json` events
-- 🧪 Educational tool for detection engineers and students
+- ✅ **Modern Streamlit Web UI**
+- 🧰 Simulates offensive techniques and malware behavior
+- 🧬 MITRE ATT&CK techniques mapped
+- 🧪 **Malware Emulation Mode** (T1055.001, Registry, C2, Mutex, etc.)
+- 🛰️ **APT TTP Simulation** with profiles (e.g., APT29)
+- 🗃️ Exports logs in:
+  - `JSON` (`event_log.json`)
+  - `CSV` (`export.csv`)
+  - `Sysmon XML` (`sysmon_log.xml`)
+  - `PowerShell` log scripts (`generate_event.ps1`)
+- 📥 Accepts uploaded custom `.json` logs for conversion
+- 📊 Timeline chart generation with Plotly
+- 🧠 Educational use for SOC analysts, blue teams, and students
 
 ---
 
-## ⚔️ Simulated Attacks
+## 🔬 Simulated Techniques
 
-| Attack Type             | Technique Description                | MITRE ATT&CK ID  |
-|-------------------------|--------------------------------------|------------------|
-| Credential Dump         | `mimikatz → logonpasswords`          | `T1003.001`      |
-| Reverse Shell (Obf.)    | `base64-encoded PowerShell`          | `T1059.001`      |
-| Command Injection       | `ping + whoami` (OS injection)       | `T1059`          |
-| SQL Injection           | `' OR '1'='1';--` Auth Bypass        | `T1505.001`      |
-| XSS (Reflected)         | `<script>alert()</script>`           | `T1059.007`      |
-| Lateral Movement (PsExec)| `Remote exec with credentials`      | `T1021.002`      |
+| Technique                | MITRE ID      |
+|--------------------------|---------------|
+| Credential Dump          | `T1003.001`   |
+| Reverse Shell (PS obf)   | `T1059.001`   |
+| Command Injection        | `T1059`       |
+| SQL Injection            | `T1505.001`   |
+| Reflected XSS            | `T1059.007`   |
+| Lateral Movement (PsExec)| `T1021.002`   |
 
 ---
 
-## 🖥️ Quick Start
+## 🧪 Malware Emulation
+
+Simulates behaviors including:
+- Registry persistence
+- Temp file drop
+- Mutex creation
+- C2 beaconing (HTTP)
+- Process injection (`T1055.001`)
+
+---
+
+## 🛰️ APT Simulation
+
+Select from built-in profiles (e.g., APT29 - Cozy Bear).  
+Steps are replayed using realistic offensive TTPs and logs are auto-generated.
+
+---
+
+## 📂 Output Files
+
+All logs are saved to the `logs/` folder:
+
+- `event_log.json`
+- `export.csv`
+- `sysmon_log.xml`
+- `generate_event.ps1`
+- `malware_emulation.json` (new)
+
+---
+
+## 🛠️ Installation
 
 ```bash
-# Install dependencies
+git clone https://github.com/your-user/HADES-Offensive-Simulator.git
+cd HADES-Offensive-Simulator
 pip install -r requirements.txt
-
-# Launch GUI
 streamlit run hades_gui.py
 
+ 
 
-Project Structure
- ├── core/                   # Attack engine and log generation logic
-│   ├── attack_engine.py
-│   ├── exporter.py
-│   ├── evtx_generator.py
-│   ├── log_simulator.py
-│   └── sysmon_simulator.py
-├── logs/                  # All output logs (json/csv/evtx)
-│   ├── event_log.json
-│   ├── export.csv
-│   └── generate_event.ps1
-├── hades_gui.py           # Streamlit GUI interface
-├── run.py                 # Optional CLI runner
-├── requirements.txt       # Python dependencies
-├── README.md              # This file
-└── USAGE.md               # Full usage instructions
-
-
-License
-MIT License. See LICENSE file for details.
-
-Disclaimer
-This tool is intended for educational, training, and detection engineering purposes only. Use responsibly and never on unauthorized systems.
 
 
