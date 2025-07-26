@@ -68,7 +68,7 @@ All logs are saved to the `logs/` folder:
 ## 🛠️ Installation
 
 ```bash
-git clone https://github.com/your-user/HADES-Offensive-Simulator.git
+git clone https://github.com/stefony/HADES-Offensive-Simulator.git
 cd HADES-Offensive-Simulator
 pip install -r requirements.txt
 streamlit run hades_gui.py
