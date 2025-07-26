@@ -1,0 +1,16 @@
+<Event>
+    <System>
+        <Provider Name="Microsoft-Windows-Sysmon"/>
+        <EventID>1</EventID>
+    </System>
+    <EventData>
+        <Data Name='attack'>SQL Injection</Data>
+        <Data Name='technique'>T1505.001</Data>
+        <Data Name='payload'>' OR '1'='1';--</Data>
+        <Data Name='affected_endpoint'>/login</Data>
+        <Data Name='database'>MSSQL</Data>
+        <Data Name='timestamp'>2025-07-26 08:52:54</Data>
+        <Data Name='event_id'>5864df95-8bcc-43ca-8330-946158bb33ea</Data>
+        <Data Name='sysmon'>{'event_id': 4688, 'record_id': 3069, 'time_generated': '2025-07-26 08:52:54', 'process_guid': 'db7d4613-48a1-4f7d-b021-fb828a034b0a', 'parent_process': 'webapp.exe', 'new_process': 'sqlservr.exe', 'command_line': "SELECT * FROM users WHERE username = '' OR '1'='1';--'", 'integrity_level': 'Medium', 'detected': False, 'detection_note': 'Suspicious SQL query pattern (possible SQLi)'}</Data>
+    </EventData>
+</Event>

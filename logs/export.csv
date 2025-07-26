@@ -1,2 +1,2 @@
-attack,technique,payload,target_page,timestamp
-Reflected XSS,T1059.007,<script>alert('Hacked');</script>,/search?q=<script>alert('Hacked');</script>,2025-07-23 17:00:00
+attack,tool,technique,timestamp,event_id
+Credential Dump,Mimikatz,T1003.001,2025-07-26T12:19:49.175157,2ad27c8b-0713-4696-b957-7a56b6b19b2f

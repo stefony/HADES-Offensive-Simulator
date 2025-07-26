@@ -1,7 +1,7 @@
 import random
 import uuid
-import time
 import os
+from datetime import datetime
 
 
 def detect_behavior(cmdline):
@@ -33,7 +33,7 @@ def generate_sysmon_4688(process_name, parent_process, cmdline):
     return {
         "event_id": 4688,
         "record_id": random.randint(1000, 9999),
-        "time_generated": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "time_generated": datetime.now().isoformat(),  # <-- ISO формат за plotly
         "process_guid": str(uuid.uuid4()),
         "parent_process": parent_process,
         "new_process": process_name,

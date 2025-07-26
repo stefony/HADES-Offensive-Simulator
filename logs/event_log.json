@@ -1,7 +1,7 @@
 {
-    "attack": "Reflected XSS",
-    "technique": "T1059.007",
-    "payload": "<script>alert('Hacked');</script>",
-    "target_page": "/search?q=<script>alert('Hacked');</script>",
-    "timestamp": "2025-07-23 17:00:00"
+    "attack": "Credential Dump",
+    "tool": "Mimikatz",
+    "technique": "T1003.001",
+    "timestamp": "2025-07-26T12:19:49.175157",
+    "event_id": "2ad27c8b-0713-4696-b957-7a56b6b19b2f"
 }

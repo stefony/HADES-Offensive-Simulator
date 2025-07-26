@@ -6,8 +6,16 @@ import uuid
 from core.sysmon_simulator import generate_sysmon_4688
 
 
-def current_time():
-    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+def now():
+    """Standard ISO timestamp for consistency across all events."""
+    return datetime.now().isoformat()
+
+
+def wrap_sysmon_event(event, detected=True):
+    """Add additional metadata to sysmon events"""
+    event["time_generated"] = now()
+    event["detected"] = detected
+    return event
 
 
 def simulate_credential_dump():
@@ -18,10 +26,10 @@ def simulate_credential_dump():
     print(Fore.GREEN + "[+] Dump complete.")
 
     return {
-        "attack": "Credential Dumping",
+        "attack": "Credential Dump",
         "tool": "Mimikatz",
         "technique": "T1003.001",
-        "timestamp": current_time(),
+        "timestamp": now(),
         "event_id": str(uuid.uuid4())
     }
 
@@ -39,6 +47,7 @@ def simulate_reverse_shell():
     sleep(1)
 
     sysmon_event = generate_sysmon_4688("powershell.exe", "explorer.exe", decoded_cmd)
+    sysmon_event = wrap_sysmon_event(sysmon_event)
 
     print(Fore.GREEN + "[+] Reverse shell launched (simulated).")
 
@@ -50,7 +59,7 @@ def simulate_reverse_shell():
         "source_ip": attacker_ip,
         "dest_port": attacker_port,
         "stealth_score": 7.5,
-        "timestamp": sysmon_event["time_generated"],
+        "timestamp": now(),
         "event_id": str(uuid.uuid4()),
         "sysmon": sysmon_event
     }
@@ -62,6 +71,7 @@ def simulate_command_injection():
 
     cmd_line = "ping 127.0.0.1 && whoami"
     sysmon_event = generate_sysmon_4688("cmd.exe", "webserver.exe", cmd_line)
+    sysmon_event = wrap_sysmon_event(sysmon_event)
 
     print(Fore.GREEN + "[+] Command Injection executed (simulated).")
 
@@ -70,7 +80,7 @@ def simulate_command_injection():
         "technique": "T1059",
         "vulnerability": "Unsanitized user input in OS command",
         "endpoint": "/status?host=127.0.0.1 && whoami",
-        "timestamp": sysmon_event["time_generated"],
+        "timestamp": now(),
         "event_id": str(uuid.uuid4()),
         "sysmon": sysmon_event
     }
@@ -83,6 +93,7 @@ def simulate_sql_injection():
     payload = "' OR '1'='1';--"
     cmd_line = f"SELECT * FROM users WHERE username = '{payload}'"
     sysmon_event = generate_sysmon_4688("sqlservr.exe", "webapp.exe", cmd_line)
+    sysmon_event = wrap_sysmon_event(sysmon_event)
 
     print(Fore.GREEN + "[+] SQLi simulated.")
 
@@ -92,7 +103,7 @@ def simulate_sql_injection():
         "payload": payload,
         "affected_endpoint": "/login",
         "database": "MSSQL",
-        "timestamp": sysmon_event["time_generated"],
+        "timestamp": now(),
         "event_id": str(uuid.uuid4()),
         "sysmon": sysmon_event
     }
@@ -111,7 +122,7 @@ def simulate_xss():
         "technique": "T1059.007",
         "payload": payload,
         "target_page": "/search?q=<script>alert('Hacked');</script>",
-        "timestamp": current_time(),
+        "timestamp": now(),
         "event_id": str(uuid.uuid4())
     }
 
@@ -122,6 +133,7 @@ def simulate_lateral_movement():
 
     cmd_line = "PsExec.exe \\\\10.0.0.5 -u admin -p password cmd.exe"
     sysmon_event = generate_sysmon_4688("PsExec.exe", "cmd.exe", cmd_line)
+    sysmon_event = wrap_sysmon_event(sysmon_event)
 
     print(Fore.GREEN + "[+] Lateral movement simulated.")
 
@@ -130,7 +142,7 @@ def simulate_lateral_movement():
         "technique": "T1021.002",
         "tool": "PsExec",
         "target_host": "10.0.0.5",
-        "timestamp": sysmon_event["time_generated"],
+        "timestamp": now(),
         "event_id": str(uuid.uuid4()),
         "sysmon": sysmon_event
     }
