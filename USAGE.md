@@ -1,79 +1,86 @@
 # 🧪 HADES Offensive Simulator - Usage Guide
-
-This guide will walk you through using the HADES Red Team simulation tool via its web interface (Streamlit).
-
+> A step-by-step guide to using the HADES Red Team simulation toolkit through its interactive Streamlit GUI.
 ---
 
-## ✅ Step-by-Step Instructions
+## ✅ 1. Setup
 
-### 1. Setup
-
-Install the required dependencies:
+### 📦 Install requirements
 
 ```bash
 pip install -r requirements.txt
 
-Run the Streamlit GUI:
+ Run the Streamlit GUI:
 streamlit run hades_gui.py
 
-2. Simulate Offensive Attacks
-From the GUI:
+2. Attack Simulation
+From the left sidebar panel "Attack Simulation":
 
-Choose an attack type:
-
-Credential Dump
-
-Reverse Shell (Obfuscated)
-
+Choose from the following attacks:
+Credential Dump (Mimikatz)
+Reverse Shell (Base64 PowerShell)
 Command Injection
-
 SQL Injection
-
 XSS (Reflected)
-
 Lateral Movement (PsExec)
+Click ▶️ Run Attack Simulation
 
-Click "Run Attack Simulation"
+The result:
 
-The event will be:
-✅ Displayed in JSON format
-📝 Saved to logs/event_log.json
+✅ Displayed as formatted JSON
+📝 Saved as logs/event_log.json
 📤 Exported to:
-export.csv
-generate_event.ps1 (PowerShell EVTX simulation)
+logs/export.csv
+logs/generate_event.ps1 (PowerShell script for EVTX)
+Optional:
+📥 Download JSON via button
 
-You can download the simulated event as a .json file.
 
-3. Log Generation from Custom Event
-You can upload your own event_log.json file.
+3. Malware Emulation
+From the "Malware Emulation" tab:
+Click 🧪 Emulate Malware Behavior
+The tool will simulate beaconing and malware activity and log it.
 
-Choose the log type to generate:
+4. APT Profile Simulation
+From the "APT Profile" tab:
 
+Select a predefined APT profile
+Click 🚀 Run APT Simulation
+
+For each step:
+The tool will simulate the corresponding attack
+All logs will be exported (JSON, CSV, PS1)
+📈 Timeline graph will show a visual sequence of events
+
+5. Log Generation from Custom Event
+From the "Log Upload" tab:
+Upload a custom event_log.json
+
+Choose log format to generate:
 📄 CSV
 🛡️ Sysmon XML
-📁 EVTX (PowerShell)
-Click "Generate Log File"
-Generated logs will be saved in the logs/ directory.
+🗂️ EVTX (via PowerShell)
 
-4. Optional: Inject Event into Event Viewer
-To test SIEM/detection pipelines, you can inject the simulated event using the generated PowerShell script:
+Click 🛠 Generate Log File
+Results are saved in the /logs directory.
 
-# Run from PowerShell as Administrator
+6. Event Injection (Optional)
+You can inject logs into the Windows Event Viewer (EVTX simulation):
+# Run in PowerShell (as Administrator)
 .\logs\generate_event.ps1
-
-Make sure PowerShell execution policy allows running scripts:
+If blocked:
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
- Troubleshooting
-Make sure logs/ folder exists or is auto-created.
+Troubleshooting
+✅ Make sure logs/ directory exists (created automatically)
+⚠️ If PowerShell script fails to run: check execution policy
+🔄 If Streamlit fails to load: restart browser or use Ctrl+C and rerun
+💡 Event timestamps use current time; adjust if needed
 
-If generate_event.ps1 doesn't run, check PowerShell script permissions.
+Educational Use
+HADES is an excellent tool for:
+🧪 Blue team & SOC training
+📊 SIEM rule testing
+👨‍💻 Security researchers and students
 
-For Streamlit issues, try refreshing the browser or restarting the app.
-
-🧹 Cleanup
-To clear all generated logs:
-rm -rf logs/*.*
-HADES is designed for educational and testing purposes only. Use responsibly.
 
 
