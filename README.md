@@ -68,18 +68,30 @@ All logs are saved to the `logs/` folder:
 ## 🛠️ Installation
 
 ```bash
-git clone https://github.com/your-user/HADES-Offensive-Simulator.git
+git clone https://github.com/stefony/HADES-Offensive-Simulator.git
 cd HADES-Offensive-Simulator
 pip install -r requirements.txt
 streamlit run hades_gui.py
 
+
+Installation Notes:
+## ⚠️ Known Issues
+
+If you get the following error:
+ModuleNotFoundError: No module named 'plotly'
+
  
+Make sure `plotly` is installed:
+```bash
+pip install plotly
+
+Alternatively, ensure plotly is listed in requirements.txt and reinstall dependencies:
+pip install -r requirements.txt
+
+
+
+
 
 
  
  
-
-<img width="1893" height="580" alt="Екранна снимка 2025-07-26 133617" src="https://github.com/user-attachments/assets/1f3ac5cb-e282-4243-a03a-f299ce137a38" />
-<img width="1860" height="570" alt="Екранна снимка 2025-07-26 133606" src="https://github.com/user-attachments/assets/f309a515-ee00-40a8-9f01-bdcc4c9c9b2e" />
-<img width="1579" height="446" alt="Екранна снимка 2025-07-26 133551" src="https://github.com/user-attachments/assets/a8b959cc-f046-4acb-9457-8d124b25ee28" />
-<img width="1845" height="688" alt="Екранна снимка 2025-07-26 133537" src="https://github.com/user-attachments/assets/8d21e115-342c-4007-9658-91f1bbf3e771" />
