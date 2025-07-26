@@ -75,5 +75,6 @@ streamlit run hades_gui.py
 
  
 
+<img width="1819" height="494" alt="image" src="https://github.com/user-attachments/assets/6f8e2b74-5979-4eba-9c83-70e944026df8" />
 
 
