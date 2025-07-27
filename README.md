@@ -82,14 +82,12 @@ If you get the following error:
 Make sure `plotly` is installed:
 
 ```bash
-pip install plotly
-```
+pip install plotly```
 
 Alternatively, ensure plotly is listed in `requirements.txt` and reinstall dependencies:
 
 ```bash
-pip install -r requirements.txt
-```
+pip install -r requirements.txt```
 
 
 
