@@ -83,11 +83,15 @@ Make sure `plotly` is installed:
 
 ```bash
 pip install plotly
+```
 
-Alternatively, ensure plotly is listed in requirements.txt and reinstall dependencies:
+Alternatively, ensure plotly is listed in `requirements.txt` and reinstall dependencies:
 
+```bash
 pip install -r requirements.txt
- 
+```
+
+
 
 
 
