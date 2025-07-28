@@ -11,6 +11,9 @@
 - 🧬 MITRE ATT&CK techniques mapped
 - 🧪 **Malware Emulation Mode** (T1055.001, Registry, C2, Mutex, etc.)
 - 🛰️ **APT TTP Simulation** with profiles (e.g., APT29)
+- - 🎣 **Phishing Simulation** (Credential Harvesting)
+- 💣 **Insecure Deserialization** simulation
+
 - 🗃️ Exports logs in:
   - `JSON` (`event_log.json`)
   - `CSV` (`export.csv`)
@@ -32,6 +35,8 @@
 | SQL Injection            | `T1505.001`   |
 | Reflected XSS            | `T1059.007`   |
 | Lateral Movement (PsExec)| `T1021.002`   |
+| Phishing (Credential Harvesting) | `T1566.001`   |
+| Insecure Deserialization         | `T1539`       |
 
 ---
 
@@ -61,7 +66,8 @@ All logs are saved to the `logs/` folder:
 - `export.csv`
 - `sysmon_log.xml`
 - `generate_event.ps1`
-- `malware_emulation.json` (new)
+- `malware_emulation.json` – includes malware and phishing simulation logs
+
 
 ---
 
