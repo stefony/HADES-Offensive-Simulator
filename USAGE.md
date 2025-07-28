@@ -22,6 +22,8 @@ Command Injection
 SQL Injection
 XSS (Reflected)
 Lateral Movement (PsExec)
+Phishing (Credential Harvesting)
+Insecure Deserialization
 Click ▶️ Run Attack Simulation
 
 The result:
@@ -33,6 +35,8 @@ logs/export.csv
 logs/generate_event.ps1 (PowerShell script for EVTX)
 Optional:
 📥 Download JSON via button
+🔐 Phishing simulation shows captured email and password
+💣 Insecure Deserialization shows payload and impact
 
 
 3. Malware Emulation
@@ -81,6 +85,15 @@ HADES is an excellent tool for:
 🧪 Blue team & SOC training
 📊 SIEM rule testing
 👨‍💻 Security researchers and students
+
+7. Phishing & Insecure Deserialization
+
+🧪 From the "Attack Simulation" tab, select either:
+- **Phishing (Credential Harvesting)** – simulates a phishing page and logs stolen credentials
+- **Insecure Deserialization** – simulates insecure object handling and log tampering or deletion
+
+📌 Logs are saved with relevant MITRE IDs (`T1566.001` and `T1539`)
+📊 Visualized on the attack timeline with detection flags
 
 
 
