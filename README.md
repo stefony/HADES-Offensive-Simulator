@@ -74,19 +74,21 @@ pip install -r requirements.txt
 streamlit run hades_gui.py
 
 
-Installation Notes:
 ## ⚠️ Known Issues
 
-If you get the following error:
-ModuleNotFoundError: No module named 'plotly'
+If you get the following error:  
+`ModuleNotFoundError: No module named 'plotly'`
 
- 
 Make sure `plotly` is installed:
-```bash
-pip install plotly
 
-Alternatively, ensure plotly is listed in requirements.txt and reinstall dependencies:
-pip install -r requirements.txt
+```bash
+pip install plotly```
+
+Alternatively, ensure plotly is listed in `requirements.txt` and reinstall dependencies:
+
+```bash
+pip install -r requirements.txt```
+
 
 
 
