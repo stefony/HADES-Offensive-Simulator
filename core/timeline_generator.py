@@ -6,22 +6,35 @@ def generate_timeline(events):
     timeline_data = []
 
     for event in events:
-        # Извличане на валиден ISO 8601 timestamp
-        ts_raw = event.get("timestamp") or event.get("sysmon", {}).get("time_generated")
+        # Опит за извличане на timestamp от различни възможни места
+        ts_raw = (
+            event.get("timestamp") or
+            event.get("sysmon", {}).get("time_generated")
+        )
+
+        # Ако няма timestamp, генерирай текущ
+        if not ts_raw:
+            ts_raw = datetime.now().isoformat()
+            event["timestamp"] = ts_raw  # добави го обратно за бъдеща употреба
+
         try:
             ts_start = datetime.fromisoformat(ts_raw)
         except:
-            continue  # пропускай съмнителни записи
+            continue  # пропускай невалидни формати
 
-        ts_end = ts_start + timedelta(seconds=1)  # добави минимална продължителност
+        ts_end = ts_start + timedelta(seconds=1)  # минимална продължителност
 
         timeline_data.append({
             "Start": ts_start,
             "End": ts_end,
             "Attack Type": event.get("attack", "Unknown"),
-            "MITRE ID": event.get("technique", ""),
+            "MITRE ID": event.get("mitre_id", event.get("technique", "")),
             "Detection": "✅ Detected" if event.get("sysmon", {}).get("detected", False) else "❌ Not Detected"
         })
+
+    # Ако няма валидни данни, върни празен граф
+    if not timeline_data:
+        return px.scatter(title="⚠️ No valid events to visualize")
 
     df = pd.DataFrame(timeline_data)
 

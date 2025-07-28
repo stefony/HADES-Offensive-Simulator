@@ -1,7 +1,5 @@
 {
-    "attack": "Credential Dump",
-    "tool": "Mimikatz",
-    "technique": "T1003.001",
-    "timestamp": "2025-07-26T12:19:49.175157",
-    "event_id": "2ad27c8b-0713-4696-b957-7a56b6b19b2f"
+    "attack": "Insecure Deserialization",
+    "description": "Simulates exploitation of insecure object deserialization.",
+    "mitre_id": "T1536"
 }

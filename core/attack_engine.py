@@ -146,3 +146,16 @@ def simulate_lateral_movement():
         "event_id": str(uuid.uuid4()),
         "sysmon": sysmon_event
     }
+def simulate_insecure_deserialization():
+    return {
+        "attack": "Insecure Deserialization",
+        "description": "Simulates exploitation of insecure object deserialization.",
+        "mitre_id": "T1536"
+    }
+
+def simulate_phishing():
+    return {
+        "attack": "Phishing (Credential Harvesting)",
+        "description": "Simulates a phishing page to collect user credentials.",
+        "mitre_id": "T1566.001"
+    }
